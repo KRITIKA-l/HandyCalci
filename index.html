@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class = "container text-center">
-        <h1>Calculator</h1>
+        <h1>CALCULATOR</h1>
         <input placeholder="Enter First Number " class = 'form-control' id="num1">
         <br>
         <input placeholder="Enter Second Number " class = 'form-control' id="num2">
@@ -32,9 +32,23 @@
     </div>
     <br>
     <div class="container text-center" id="result">
-        <h3>Result :</h3>
+        <h3>RESULT :</h3>
     </div>
-</div>
+    <br>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+            <button type="button" class="btn btn-secondary" onclick="resetcalc()" id="reset">RESET</button>
+            </div>
+            <div class="col">
+            <button type="button" class="btn btn-info" onclick="showHistory()" id="historyBtn">CALC HISTORY</button>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center" id="history" style="display: none;">
+        <h4>History</h4>
+        <ul class="list-group" id="historyList"></ul>
+    </div>
 <script>
     function myadd()
     {
@@ -45,7 +59,8 @@
         var z=x+y
         z=z.toFixed(2)
         console.log(z)
-        document.getElementById('result').innerHTML='<h3>Result :'+z+'<\h3>'
+        document.getElementById('result').innerHTML='<h3>Result :'+z+'</h3>'
+        addToHistory(x + " + " + y + " = " + z); // For add
     }
     function mysub()
     {
@@ -56,7 +71,8 @@
         var z=x-y
         z=z.toFixed(2)
         console.log(z)
-        document.getElementById('result').innerHTML='<h3>Result :'+z+'<\h3>'
+        document.getElementById('result').innerHTML='<h3>Result :'+z+'</h3>'
+        addToHistory(x + " - " + y + " = " + z); // For add
     }
     function mymult()
     {
@@ -67,7 +83,8 @@
         var z=x*y
         z=z.toFixed(2)
         console.log(z)
-        document.getElementById('result').innerHTML='<h3>Result :'+z+'<\h3>'
+        document.getElementById('result').innerHTML='<h3>Result :'+z+'</h3>'
+        addToHistory(x + " * " + y + " = " + z); // For add
     }
     function mydiv()
     {
@@ -78,7 +95,30 @@
         var z=x/y
         z=z.toFixed(2)
         console.log(z)
-        document.getElementById('result').innerHTML='<h3>Result :'+z+'<\h3>'
+        document.getElementById('result').innerHTML='<h3>RESULT :'+z+'</h3>'
+        addToHistory(x + " / " + y + " = " + z); // For add
+    }
+    function resetcalc()
+    {
+        document.getElementById('num1').value=''
+        document.getElementById('num2').value=''
+        document.getElementById('result').innerHTML='<h3>RESULT :</h3>'
+    }
+    let historyData = [];
+    function addToHistory(entry) 
+    {
+        historyData.push(entry);
+        const historyList = document.getElementById('historyList');
+        const listItem = document.createElement('li');
+        listItem.className = "list-group-item";
+        listItem.textContent = entry;
+        historyList.appendChild(listItem);
+    }
+
+    function showHistory() 
+    {
+        const historyDiv = document.getElementById("history");
+        historyDiv.style.display = historyDiv.style.display === "none" ? "block" : "none";
     }
 </script>
 </body>
